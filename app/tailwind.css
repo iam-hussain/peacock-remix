@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "BlackEcho";
+  src: url("../public/BlackEcho.otf");
+}
+
+@font-face {
+  font-family: "AeronomicSans";
+  src: url("../public/AeronomicSans-Regular.otf");
+}
+
+@font-face {
+  font-family: "ArianeCoachella";
+  src: url("../public/ArianeCoachella-Regular.otf");
+}
+
+@font-face {
+  font-family: "Poppins";
+  src: url("../public/Poppins-Medium.ttf");
+}

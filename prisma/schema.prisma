@@ -1,0 +1,169 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               Int           @id @default(autoincrement())
+  mobileNumber     String
+  email            String?
+  firstName        String
+  lastName         String?
+  nickName         String        @unique
+  avatar           String?
+  type             USER_TYPE     @default(MEMBER)
+  joinedAt         DateTime      @default(now())
+  isActive         Boolean       @default(true)
+  vendorType       VENDOR_TYPE   @default(DEFAULT)
+  transactionFrom  Transaction[] @relation("from")
+  transactionTo    Transaction[] @relation("to")
+  passbook         Passbook      @relation(fields: [passbookId], references: [id])
+  passbookId       Int           @unique
+  createdAt        DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+  deleted          Boolean       @default(false)
+  deletedAt        DateTime?
+  vendorInterLinks InterLink[]   @relation("vendor")
+  memberInterLinks InterLink[]   @relation("member")
+}
+
+enum USER_TYPE {
+  MEMBER
+  VENDOR
+}
+
+enum VENDOR_TYPE {
+  DEFAULT
+  CHIT_FUND_COMPANY
+  LOAD_BORROWER
+}
+
+model InterLink {
+  id            Int       @id @default(autoincrement())
+  vendor        User      @relation(name: "vendor", fields: [vendorId], references: [id])
+  vendorId      Int
+  member        User      @relation(name: "member", fields: [memberId], references: [id])
+  memberId      Int
+  includeProfit Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  deleted       Boolean   @default(false)
+  deletedAt     DateTime?
+
+  @@unique([vendorId, memberId])
+}
+
+model Group {
+  id        Int       @id @default(autoincrement())
+  name      String
+  slug      String    @unique
+  amount    Float     @default(0)
+  period    PERIOD    @default(MONTH)
+  startAt   DateTime  @default(now())
+  endAt     DateTime?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deleted   Boolean   @default(false)
+  deletedAt DateTime?
+}
+
+enum PERIOD {
+  DAY
+  WEEK
+  MONTH
+  YEAR
+}
+
+model Transaction {
+  id        Int                @id @default(autoincrement())
+  type      TRANSACTION_TYPE   @default(DEPOSIT)
+  method    TRANSACTION_METHOD @default(ACCOUNT)
+  mode      TRANSACTION_MODE   @default(MEMBERS_PERIODIC_DEPOSIT)
+  dot       DateTime           @default(now())
+  amount    Float              @default(0)
+  note      String?
+  from      User               @relation(name: "from", fields: [fromId], references: [id])
+  fromId    Int
+  to        User               @relation(name: "to", fields: [toId], references: [id])
+  toId      Int
+  createdAt DateTime           @default(now())
+  updatedAt DateTime           @updatedAt
+  deleted   Boolean            @default(false)
+  deletedAt DateTime?
+}
+
+enum TRANSACTION_TYPE {
+  TRANSFER
+  DEPOSIT
+  WITHDRAWAL
+}
+
+enum TRANSACTION_METHOD {
+  CASH
+  ACCOUNT
+  UPI
+  BANK
+}
+
+enum TRANSACTION_MODE {
+  MEMBERS_PERIODIC_DEPOSIT
+  MEMBERS_WITHDRAW
+  MEMBERS_WITHDRAW_PROFIT
+  MEMBERS_REPAY_PROFIT
+  NEW_MEMBER_PAST_TALLY
+  INTER_CASH_TRANSFER
+  VENDOR_PERIODIC_INVEST
+  VENDOR_PERIODIC_RETURN
+  VENDOR_INVEST
+  VENDOR_RETURN
+  OTHER_EXPENDITURE
+}
+
+model Passbook {
+  id      Int               @id @default(autoincrement())
+  entryOf PASSBOOK_ENTRY_OF @default(CLUB)
+
+  termDeposit  Float @default(0)
+  deposit      Float @default(0)
+  tallyDeposit Float @default(0)
+  totalDeposit Float @default(0)
+
+  withdraw       Float @default(0)
+  profitWithdraw Float @default(0)
+  totalWithdraw  Float @default(0)
+
+  tallyBalance Float @default(0)
+
+  accountBalance Float @default(0)
+
+  termInvest  Float @default(0)
+  invest      Float @default(0)
+  totalInvest Float @default(0)
+
+  termReturns  Float @default(0)
+  returns      Float @default(0)
+  totalReturns Float @default(0)
+
+  profit      Float   @default(0)
+  tallyProfit Float   @default(0)
+  totalProfit Float   @default(0)
+  calcProfit  Boolean @default(true)
+
+  holdingAmount Float @default(0)
+
+  depositMonths  Float @default(0)
+  withdrawMonths Float @default(0)
+  investMonths   Float @default(0)
+  returnsMonths  Float @default(0)
+
+  user User?
+}
+
+enum PASSBOOK_ENTRY_OF {
+  USER
+  CLUB
+}
