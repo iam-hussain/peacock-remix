@@ -22,10 +22,13 @@ if (process.env.NODE_ENV === "production") {
 }
 
 function getClient() {
-  const { DATABASE_URL } = process.env;
-  invariant(typeof DATABASE_URL === "string", "DATABASE_URL env var not set");
+  const { DATABASE_PRISMA_URL } = process.env;
+  invariant(
+    typeof DATABASE_PRISMA_URL === "string",
+    "DATABASE_PRISMA_URL env var not set"
+  );
 
-  const databaseUrl = new URL(DATABASE_URL);
+  const databaseUrl = new URL(DATABASE_PRISMA_URL);
 
   const isLocalHost = databaseUrl.hostname === "localhost";
 
