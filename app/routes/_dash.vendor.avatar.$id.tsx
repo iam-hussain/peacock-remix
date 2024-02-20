@@ -1,10 +1,6 @@
 import type { ActionArgs, LoaderArgs } from "@remix-run/node";
-import {
-  json,
-  redirect,
-  unstable_createFileUploadHandler,
-  unstable_parseMultipartFormData,
-} from "@remix-run/node";
+import { unstable_createFileUploadHandler } from "@remix-run/node";
+import { json, redirect, unstable_parseMultipartFormData } from "@vercel/remix";
 import { toast } from "react-toastify";
 import { Form, Link, useActionData, useLoaderData } from "@remix-run/react";
 import { getIsLoggedIn } from "~/session.server";

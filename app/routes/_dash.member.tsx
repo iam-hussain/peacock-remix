@@ -1,5 +1,5 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json } from "@vercel/remix";
 import { Link, Outlet, useLoaderData } from "@remix-run/react";
 import classNames from "classnames";
 import html2canvas from "html2canvas";

@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import type * as yup from "yup";
 import type { LoaderArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { json, redirect } from "@vercel/remix";
 import { toast } from "react-toastify";
 import {
   useActionData,

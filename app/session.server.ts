@@ -1,5 +1,5 @@
-import type { Session } from "@remix-run/node";
-import { createCookieSessionStorage, redirect } from "@remix-run/node";
+import type { Session } from "@vercel/remix";
+import { createCookieSessionStorage, redirect } from "@vercel/remix";
 import invariant from "tiny-invariant";
 
 invariant(process.env.SESSION_SECRET, "SESSION_SECRET must be set");

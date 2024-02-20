@@ -1,5 +1,5 @@
 import type { ActionArgs } from "@remix-run/node";
-import { redirect } from "@remix-run/node";
+import { redirect } from "@vercel/remix";
 import configContext from "~/config/configContext";
 import { prisma } from "~/db.server";
 import backup from "~/models/backup.server";

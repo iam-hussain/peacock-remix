@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import type * as yup from "yup";
 import type { LoaderArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
+import { json, redirect } from "@vercel/remix";
 import { toast } from "react-toastify";
 import {
   useActionData,
@@ -15,7 +15,7 @@ import { prisma } from "~/db.server";
 import { getValidDate, responseData } from "~/helpers/utils";
 import { getUserSelect } from "~/models/user.server";
 import configContext from "~/config/configContext";
-import type { Transaction } from ".prisma/client";
+import type { Transaction } from "@prisma/client";
 import { useEffect } from "react";
 import { getIsLoggedIn } from "~/session.server";
 

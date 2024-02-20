@@ -1,5 +1,5 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json } from "@vercel/remix";
 import { useLoaderData } from "@remix-run/react";
 import GroupCard from "~/components/molecules/group";
 import UpdateCard from "~/components/molecules/update";

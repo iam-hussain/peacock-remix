@@ -1,6 +1,6 @@
 import moment from "moment-timezone";
 import _ from "lodash";
-import { json } from "@remix-run/node";
+import { json } from "@vercel/remix";
 import configContext from "~/config/configContext";
 
 moment.tz.setDefault("Asia/Kolkata");

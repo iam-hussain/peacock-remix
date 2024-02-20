@@ -1,5 +1,5 @@
 import type { LoaderArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import { json } from "@vercel/remix";
 import { Outlet, useLoaderData, useSearchParams } from "@remix-run/react";
 import { useMemo, useState } from "react";
 import TransactionTable from "~/components/organisms/transactionTable";

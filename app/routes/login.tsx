@@ -1,4 +1,4 @@
-import { json } from "@remix-run/node";
+import { json } from "@vercel/remix";
 import { Form, Link, useActionData } from "@remix-run/react";
 import configContext from "~/config/configContext";
 import { login } from "~/session.server";
